@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import Header from './components/include/Header';
+import Bottom from './components/include/Bottom';
+import { useState } from "react";
+import KakaoMapTest from "./components/kakao/KakaoMapTest";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+const App = () => {
+
+  const [number, setNumber] = useState(1);
+
+  const increase = () => {
+    setNumber(number+1);
+  }
+
+  const decrease = () => {
+    setNumber(number-1);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <h1>React Redux</h1>
+        <Header number={number} />
+        <KakaoMapTest />
+        <Bottom increase={increase} decrease={decrease} />
+      </div>
+    </>
   );
 }
 
