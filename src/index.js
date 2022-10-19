@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import TomatoTalk from './components/talk/TomatoTalk';
-import "@fortawesome/fontawesome-free/js/all.js"
+import "@fortawesome/fontawesome-free/js/all.js";
 import { legacy_createStore } from "redux";
 import { Provider } from 'react-redux';
+import ReduxApp from './ReduxApp';
+import reducer from "./store";
+import "./App.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = legacy_createStore(reducer)
@@ -13,7 +16,7 @@ console.log(store.getState());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ReduxApp />
       {/* <TomatoTalk /> */}
       {/* <App /> */}
     </Provider>
