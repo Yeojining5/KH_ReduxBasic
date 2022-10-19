@@ -1,4 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
+import { resolvePath } from "react-router-dom";
 
 class AuthLogic {
   constructor() {
@@ -7,21 +8,13 @@ class AuthLogic {
     this.githubProvider = new GithubAuthProvider();
   }
 
-  login(providerName) {
-    const authProvider = this.getProvider(providerName);
-    //return signInWithPopup(this.firebaseAuth, authProvider);
-    return signInWithPopup(this.firebaseAuth, authProvider);
+  getUserAuth = () => {
+    return this.firebaseAuth;
+  }
+  getGoogleAuthProvider = () => {
+    return this.googleProvider;
   }
 
-  logout() {
-    this.firebaseAuth.signOut();
-  }
-
-  onAuthChange(onUserChanged) {
-    this.firebaseAuth.onAuthStateChanged((user) => {
-      onUserChanged(user);
-    });
-  }
 
   getProvider(providerName) {
     switch (providerName) {
@@ -36,3 +29,34 @@ class AuthLogic {
 }
 
 export default AuthLogic;
+
+//////////// 외부에서 접근하도록 코드 수정 ////////////////////
+export const loginGoogle = (firebaseAuth, googleProvider) => {
+  return new Promise((resolve, reject) => {
+    signInWithPopup(firebaseAuth, googleProvider)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+      resolve(user); // 성공했을 때는 resolve에 파라미터로 담아주기
+    })
+    .catch((e) => reject(e));
+  });
+};
+
+export const logout = (firebaseAuth) => {
+  window.localStorage.removeItem("userId");
+  return new Promise((resolve, reject) => {
+    firebaseAuth
+      .signOut()
+      .catch((e) => reject(alert(e + ": 로그아웃 에러입니다.")));
+  });
+};
+
+
+export const onAuthChange = (firebaseAuth) => {
+  return new Promise((resolve) => {
+    firebaseAuth.onAuthStateChanged((user) => {
+      resolve(user);
+    });
+  });
+};

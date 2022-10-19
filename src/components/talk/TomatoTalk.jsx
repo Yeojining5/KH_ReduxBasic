@@ -16,6 +16,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+
 const database = getDatabase();
 
 const TomatoTalk = (props) => {

@@ -1,7 +1,11 @@
 
 let i;
 for (i=0; i<10; i++) {
-  setTimeout(() => {
-    console.log(i);
+  ((j) => {
+    setTimeout(() => {
+    console.log(j);
   }, 200);
+  }) (i)
 }
+
+// 결론 : 클로저를 사용하면 스코프를 추가하여 반복할 때마다 다른 값을 저장할 수 있다

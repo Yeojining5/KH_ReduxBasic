@@ -10,8 +10,8 @@ const ReduxApp = () => {
   return (
     <div className="container">
       <h1>React Redux 실습</h1>
-      <MainPage />
       <ReduxHeader />
+      <MainPage />
       <ReduxBottom />
     </div>
   );

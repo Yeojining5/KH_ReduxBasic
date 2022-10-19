@@ -1,9 +1,10 @@
 
-export const actionCreator = type => payload => ({
-  type, 
-  payload,
+export const actionCreator = (type) => (payload) => ({
+  type, // increase or decrease
+  payload, // 처리를 원하는 내용, 보내고 싶은 내용
 })
 
+// 클로저 사용
 export const createStore = () => {
   let state;
   let handlers = [];
